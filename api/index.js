@@ -234,7 +234,7 @@ app.get('/dashboard/', async (req, res) => {
 				) {
 					// Serve the dashboard
 
-					res.sendFile(path.join(rootDir, 'public', 'dashboard', 'dashboard.html'));
+					res.sendFile(path.join(rootDir, 'public', 'dashboard.html'));
 				} else {
 					// If any of the check didn't pass then it will serve the forbidden file
 
