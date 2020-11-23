@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="assets/images/trasnparentlogofinal-121x106.png" type="image/x-icon">
+  <link rel="stylesheet" href="./assets/login/login.css">
+  
+  <title>Admin Login</title>
+</head>
+<body>
+  <form id="signin-form">
+    <h1 id="title">Login</h1>
+    <!-- <h3 id="title-incorrect">Incorrect Password</h3> -->
+
+    <div class="textbox username">
+      <i class="fa fa-user" aria-hidden="true"></i>
+      <input type="text" required id="user-name">
+      <div class="underline"></div>
+      <label>Username</label>
+    </div>
+
+    <div class="textbox password">
+      <i class="fa fa-lock" aria-hidden="true"></i>
+      <input type="password" required id="user-pass" autocomplete="current-password">
+      <div class="underline"></div>
+      <label>Password</label>
+    </div>
+
+    <div class="btn-cont">
+      <input id="signin-btn" type="submit" class="btn" value="Sign in">
+      <input id="back-btn" type="button" class="btn" value="Home">
+    </div>
+    
+
+
+  </form>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="./js/login.js"></script>
+</body>
+</html>
