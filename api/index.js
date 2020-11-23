@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const bcrypt = require('bcrypt');
 const path = require('path');
-const mongoose = require('mongoose');
 const cors = require('cors');
-const dotenv = require('dotenv').config();
+const mongoose = require('mongoose');
+require('dotenv').config();
 const cookieParser = require('cookie-parser');
 
 // Connect to mongoDB using mongoose
@@ -16,19 +16,23 @@ mongoose
 const userSchema = new mongoose.Schema({
 	name         : { type: String, required: true },
 	password     : { type: String, required: true },
-    verification : { type: String, required: true },
-    sessionId    : { type: String }
+	verification : { type: String, required: true },
+	sessionId    : { type: String }
 });
 
 /* Middlewares */
-app.use(cookieParser('Pr1vacy')) // to read cookies
-app.use(express.json()); // Use JSON
+app.use(cookieParser('Pr1vacy')); // to read cookies
 app.use(cors()); // Use CORS, anyone can access the API
-app.all('/', (req, res, next) => { // Anyone can access the API
+app.all('/', (req, res, next) => {
+	// Anyone can access the API
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Headers', 'X-Requested-With');
 	next();
 });
+app.use(express.json()); // Use JSON
+
+// Router for /events
+require('./events')(app);
 
 // Root directory of the project
 const rootDir = path.dirname(__dirname);
@@ -49,38 +53,52 @@ app.get('/login', (req, res) => {
 // Check for post request in the /users path and
 // if everything goes right, it will create a new user
 app.post('/users', async (req, res) => {
+	// If there is no admin perm password created, it won't let anyone make new users
+	if (!process.env.ADMIN_PERM_PASS)
+		return res.status(500).send('Admin Permission Password is not created yet, cannot make any users.');
+
+	// Checks if the password given from request is valid
+	if (req.body.adminPermPass !== process.env.ADMIN_PERM_PASS)
+		return res
+			.status(403)
+			.send(
+				'Admin Permission Password to create a user account given is invalid. \nPass a key named adminPermPass in the request with the correct password'
+			);
+
 	try {
-        // Create a hashed password using the given password
-        const hashedPass = await bcrypt.hash(req.body.password, 10);
-        
-        // Hash the hashed password as authentication
+		// Create a hashed password using the given password
+		const hashedPass = await bcrypt.hash(req.body.password, 10);
+
+		// Hash the hashed password as authentication
 		const authVerification = await bcrypt.hash(hashedPass, 13);
 
-        // Create a new user Object
-		const user = { 
-            name: req.body.name, 
-            password: hashedPass 
-        };
+		// Create a new user Object
+		const user = {
+			name     : req.body.name,
+			password : hashedPass
+		};
 
-        // Create a User model
+		// Create a User model
 		const User = mongoose.model('Users', userSchema);
 
-        // Find the user using the name from the user obj
+		// Find the user using the name from the user obj
 		await User.findOne({ name: user.name }, (err, data) => {
-            if (err || !data) { // if there is no data
-                // create a new user
+			if (err || !data) {
+				// if there is no data
+				// create a new user
 				const newUser = new User({
 					name         : user.name,
 					password     : user.password,
 					verification : authVerification
 				});
 
-                // Save it in the DB
+				// Save it in the DB
 				newUser.save(err => {
 					if (err) throw err;
 				});
-            } else {// if user is found, then
-                // throw an error saying username taken
+			} else {
+				// if user is found, then
+				// throw an error saying username taken
 				throw new Error('Username taken');
 			}
 		});
@@ -94,48 +112,50 @@ app.post('/users', async (req, res) => {
 // authenticate the login, if everything checks out
 // it will log in the user
 app.post('/login', async (req, res) => {
-    // Create the user model
+	// Create the user model
 	const User = mongoose.model('Users', userSchema);
 
-    // Find the user using the username given from the request
+	// Find the user using the username given from the request
 	await User.findOne({ name: req.body.name }, async (err, data) => {
-		if (err || !data) {// If there is no data found
+		if (err || !data) {
+			// If there is no data found
 			res.send(`Cannot find user`);
 		} else {
 			try {
-                // Make a random hash for session id
-                let randomSecret = bcrypt.hashSync('randomsecret', 3);
+				// Make a random hash for session id
+				let randomSecret = bcrypt.hashSync('randomsecret', 3);
 
-                // Check if the password is good 
-                if (await bcrypt.compare(req.body.password, data.password)) { // if it is,
-                    // create a new object 
+				// Check if the password is good
+				if (await bcrypt.compare(req.body.password, data.password)) {
+					// if it is,
+					// create a new object
 					let userInfo = {
-                        name: data.name,
-                        password: data.password
-                    }
+						name     : data.name,
+						password : data.password
+					};
 
-                    // Get the date one month later
-                    let oneMonth = new Date(new Date().setMonth(new Date().getMonth() + 1));
+					// Get the date one month later
+					let oneMonth = new Date(new Date().setMonth(new Date().getMonth() + 1));
 
-                    // Creates a session id cookie that expires in one month
-                    res.cookie('user_sid', JSON.stringify(randomSecret), { expires: oneMonth });
+					// Creates a session id cookie that expires in one month
+					res.cookie('user_sid', JSON.stringify(randomSecret), { expires: oneMonth });
 
-                    // Creates a user info cookie that expires in one month
-                    res.cookie('user-info', JSON.stringify(userInfo), {express: oneMonth});
+					// Creates a user info cookie that expires in one month
+					res.cookie('user-info', JSON.stringify(userInfo), { express: oneMonth });
 
-                    // Respond with message
-                    res.send('Success');
+					// Respond with message
+					res.send('Success');
 				} else {
 					res.send('Wrong Password');
-                }
-                
-                // Change the session id stored inside the DB to be the new session id
-                data.sessionId = randomSecret;
+				}
 
-                // Save the changes
-                data.save(err => {
-                    if (err) throw err;
-                })
+				// Change the session id stored inside the DB to be the new session id
+				data.sessionId = randomSecret;
+
+				// Save the changes
+				data.save(err => {
+					if (err) throw err;
+				});
 			} catch (err) {
 				res.status(500).send('Something wrong with bcrypt or code');
 			}
@@ -146,26 +166,28 @@ app.post('/login', async (req, res) => {
 // Check for post request on /verify path and if everything
 // checks out, it will verify the user logged in
 app.post('/verify', async (req, res) => {
-    // Create user model
+	// Create user model
 	const User = mongoose.model('Users', userSchema);
 
-    // Get the user info from the cookies
-    let userInfo = JSON.parse(req.cookies['user-info']);
+	// Get the user info from the cookies
+	let userInfo = JSON.parse(req.cookies['user-info']);
 
-    // Find the user using the username from the cookies
+	// Find the user using the username from the cookies
 	await User.findOne({ name: userInfo.name }, async (err, data) => {
-        if (err || !data) { // If there is no data,
-            // respond with not found
+		if (err || !data) {
+			// If there is no data,
+			// respond with not found
 			res.send('User Not Found');
 		} else {
 			try {
-                // Get session id from cookie
-                let sessId = JSON.parse(req.cookies['user_sid']);
+				// Get session id from cookie
+				let sessId = JSON.parse(req.cookies['user_sid']);
 
-                // Check with bcrypt if the password from the cookie is the same from the database
-                // and if the session id is the same in the database
-                if (await bcrypt.compare(req.body.password, data.verification)) {// if so,
-                    // respond with authorized
+				// Check with bcrypt if the password from the cookie is the same from the database
+				// and if the session id is the same in the database
+				if ((await bcrypt.compare(req.body.password, data.verification)) && sessId == data.sessionId) {
+					// if so,
+					// respond with authorized
 					res.send('Authorized');
 				} else {
 					res.send('Not Authorized');
@@ -203,8 +225,7 @@ app.get('/dashboard/', async (req, res) => {
 		await User.findOne({ name: sessInfo['user-info'].name }, async (err, data) => {
 			if (err || !data) {
 				// If not found, then won't be authorized
-				res.status(403).send('Not Authorized');
-				// Change into serving a 403 Forbidden
+				res.status(403).sendFile(path.join(rootDir, 'public', 'forbidden.html'));
 			} else {
 				if (
 					// Check if the user info password is correct and check if the session id match
@@ -217,7 +238,7 @@ app.get('/dashboard/', async (req, res) => {
 				} else {
 					// If any of the check didn't pass then it will serve the forbidden file
 
-					res.status(403).send('Not Authorized');
+					res.status(403).sendFile(path.join(rootDir, 'public', 'forbidden.html'));
 				}
 			}
 		});
