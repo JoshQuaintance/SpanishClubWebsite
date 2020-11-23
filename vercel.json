@@ -15,6 +15,9 @@
       },
       {
           "source": "/events", "destination": "/api"
+      },
+      {
+          "source": "/users", "destination": "/api"
       }
     ]
 }
