@@ -185,7 +185,7 @@ app.post('/verify', async (req, res) => {
 
 				// Check with bcrypt if the password from the cookie is the same from the database
 				// and if the session id is the same in the database
-				if ((await bcrypt.compare(req.body.password, data.verification)) && sessId == data.sessionId) {
+				if ((await bcrypt.compare(userInfo.password, data.verification)) && sessId == data.sessionId) {
 					// if so,
 					// respond with authorized
 					res.send('Authorized');
@@ -193,7 +193,7 @@ app.post('/verify', async (req, res) => {
 					res.send('Not Authorized');
 				}
 			} catch (err) {
-				res.status(500).send(err);
+				res.status(500).send('Failed to compare');
 			}
 		}
 	});
@@ -247,4 +247,6 @@ app.get('/dashboard/', async (req, res) => {
 	}
 });
 
-module.exports = app;
+// module.exports = app;
+app.listen(3000);
+console.log('listening in localhost:3000');
