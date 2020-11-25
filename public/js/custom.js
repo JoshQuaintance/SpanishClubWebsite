@@ -60,11 +60,16 @@ function loggedIn() {
 }
 
 $(document).ready(async () => {
+	$('body').addClass('pageLoaded');
 	HomePageLoginBtn();
 
 	/* More Upcoming Events */
 	// If there is more than 1 events, remove the hr from the very last element
-	if ($('.event-content').length > 1) $('.event-content').last().find('hr').remove();
+	setTimeout(() => {
+		if ($('.event-content').length > 1) {
+			$('.event-content').first().find('hr').remove();
+		}
+	}, 10);
 
 	// For editing content
 	// document.getElementById('testing-dates').contentEditable = true;
