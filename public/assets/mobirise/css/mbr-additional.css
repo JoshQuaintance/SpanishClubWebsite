@@ -1510,7 +1510,9 @@ a {
 	font-family: 'Nunito', cursive;
 }
 
-#information-bar ul li span strong {
+#information-bar ul li span strong,
+#information-bar ul li .title,
+#information-bar ul li .title {
 	font-size: 28px;
 	color: #374045;
 	font-weight: lighter;
@@ -1546,25 +1548,22 @@ a {
 }
 
 #information-bar ul {
-    display: flex;
+	display: flex;
 }
 
 @media (max-width: 560px) {
-    .events .pl-3 .info-bar {
-        min-width: 400px;
-    }
+	.events .pl-3 .info-bar {
+		min-width: 400px;
+	}
 }
 
 @media (max-width: 540px) {
-    .events .pl-3 .info-bar {
-        min-width: 300px;
-    }
+	.events .pl-3 .info-bar {
+		min-width: 300px;
+	}
 }
 
-
 @media (max-width: 520px) {
-
-
 	.events .date-number::after {
 		content: '';
 		display: none;
@@ -1573,29 +1572,29 @@ a {
 		border-bottom: 1px solid #47b5ed;
 		border-radius: 5px;
 		height: 0;
-    }
-    
-    .events .month::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-    
-        left: 50%;
-        transform: translateX(-50%) !important;
-        border: 2px solid #47b5ed;
-        height: 1px;
-        border-radius: 15px;
-        width: 45.5px;
-    }
+	}
 
-    .events .pl-3 {
-        flex-wrap: wrap;
-    }
+	.events .month::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
 
-    .events .date {
-        display: flex;
-        flex-wrap: wrap;
-    }
+		left: 50%;
+		transform: translateX(-50%) !important;
+		border: 2px solid #47b5ed;
+		height: 1px;
+		border-radius: 15px;
+		width: 45.5px;
+	}
+
+	.events .pl-3 {
+		flex-wrap: wrap;
+	}
+
+	.events .date {
+		display: flex;
+		flex-wrap: wrap;
+	}
 
 	.events .date {
 		font-family: 'Nerko One', cursive;
@@ -1607,56 +1606,54 @@ a {
 		transform: translateX(-50px) !important;
 		margin-left: 0;
 		margin-right: 0 !important;
-    }
-    
-    .events .pl-3 .info-bar {
-        min-width: 100px;
-    }
+	}
+
+	.events .pl-3 .info-bar {
+		min-width: 100px;
+	}
 }
 
 @media (max-width: 350px) {
+	#information-bar ul li span {
+		font-size: 15px;
+		display: inline-block;
+		text-align: left;
+		vertical-align: middle;
+		font-family: 'Nunito', cursive;
+		word-wrap: wrap;
+		word-break: break-all;
+	}
 
+	#information-bar ul li span strong,
+	#information-bar ul li .title {
+		font-size: 26px;
+		color: #374045;
+		font-weight: lighter;
+		margin-bottom: 5px;
+		display: block;
+		font-family: 'Nerko One', cursive;
+	}
 
-    #information-bar ul li span {
-        font-size: 15px;
-        display: inline-block;
-        text-align: left;
-        vertical-align: middle;
-        font-family: 'Nunito', cursive;
-        word-wrap: wrap;
-        word-break: break-all;
-    }
-    
-    #information-bar ul li span strong {
-        font-size: 26px;
-        color: #374045;
-        font-weight: lighter;
-        margin-bottom: 5px;
-        display: block;
-        font-family: 'Nerko One', cursive;
-    }
+	.events .pl-3 .info-bar {
+		min-width: 100px;
+	}
 
-    .events .pl-3 .info-bar {
-        min-width: 100px;
-    }
-    
-    .events .date {
-        font-family: 'Nerko One', cursive;
-        position: relative;
-        min-width: 100px;
-        display: flex;
-    }
-    
-    .events .date .date-number {
-        font-size: 3em;
-    }
-    
-    .events .date .month {
-        font-size: 1.5em;
-    }
+	.events .date {
+		font-family: 'Nerko One', cursive;
+		position: relative;
+		min-width: 100px;
+		display: flex;
+	}
 
-    
-    .events .pl-3 .info-bar {
-        min-width: 100px;
-    }
+	.events .date .date-number {
+		font-size: 3em;
+	}
+
+	.events .date .month {
+		font-size: 1.5em;
+	}
+
+	.events .pl-3 .info-bar {
+		min-width: 100px;
+	}
 }
