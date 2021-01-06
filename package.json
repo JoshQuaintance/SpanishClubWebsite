@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon testing.js",
+    "dev:start": "nodemon testing.js",
     "testing": "node testing.js"
   },
   "author": "",
