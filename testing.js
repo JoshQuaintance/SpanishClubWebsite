@@ -18,6 +18,8 @@ const userSchema = new mongoose.Schema({
 	sessionId    : { type: String }
 });
 
+
+//Comment
 app.use(cookieParser('Pr1vacy'));
 app.use(cors());
 app.all('/', (req, res, next) => {
