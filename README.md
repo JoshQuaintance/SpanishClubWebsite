@@ -8,7 +8,22 @@ TailwindCSS will give me the power of CSS without all the hassle. It has dark mo
 
 I am hoping this project would turn out better than the last one.
 
+---
+
+
+
 ### Git Commit Directions
+
+Always try to follow this format:
+
+`<emoji> <type> <message>`
+
+ex:
+
+`📖 docs ~ added git commit directions`
+
+
+##### Here are all the emoji and types:
 
 | Emoji | Type | Description | Notes |
 | :-: | - | :-: | - |
@@ -18,4 +33,4 @@ I am hoping this project would turn out better than the last one.
 | 🔗 | route | New route for the website |   |
 | 🖥️ | backend | New features for back-end |   |
 | 💡 | frontend | New features for frontend |   |
-|   |   |   |   |
+| 📖 | docs | Documentations update. |   |
