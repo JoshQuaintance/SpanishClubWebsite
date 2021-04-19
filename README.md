@@ -22,13 +22,14 @@ ex:
 
 ##### Here are all the emoji and types:
 
-| Emoji | Type     |                                                     Description                                                     | Notes                                   |
-| :---: | -------- | :-----------------------------------------------------------------------------------------------------------------: | --------------------------------------- |
-|  ✨   | style    |                                     Anything related to the styling of the page                                     |                                         |
-|  📚   | deps     |                                               New dependencies added.                                               | Usually only seen on package.json       |
-|  🧹   | chore    | Stuff that is needed to be done that doesn't have a huge impact in the project other than quality-of-life file tree | Usually removing files, adding Comments |
-|  🔗   | route    |                                              New route for the website                                              |                                         |
-|  🖥️   | backend  |                                              New features for back-end                                              |                                         |
-|  💡   | frontend |                                              New features for frontend                                              |                                         |
-|  📖   | docs     |                                               Documentations update.                                                |                                         |
-|  📝   | todo     |                     Items that are started but have features planned that needed to be finished                     |                                         |
+| Emoji | Type          |                                                     Description                                                     | Notes                                   |
+| :---: | ------------- | :-----------------------------------------------------------------------------------------------------------------: | --------------------------------------- |
+|  ✨   | style         |                                     Anything related to the styling of the page                                     |                                         |
+|  📚   | deps          |                                               New dependencies added.                                               | Usually only seen on package.json       |
+|  🧹   | chore         | Stuff that is needed to be done that doesn't have a huge impact in the project other than quality-of-life file tree | Usually removing files, adding Comments |
+|  🔗   | route         |                                              New route for the website                                              |                                         |
+|  🖥️   | backend       |                                              New features for back-end                                              |                                         |
+|  💡   | frontend      |                                              New features for frontend                                              |                                         |
+|  📖   | docs          |                                               Documentations update.                                                |                                         |
+|  📝   | todo          |                     Items that are started but have features planned that needed to be finished                     |                                         |
+|  ⚙️   | functionality |                                   Anything that adds functionality to development                                   |                                         |
