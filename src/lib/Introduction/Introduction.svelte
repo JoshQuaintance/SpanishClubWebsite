@@ -15,23 +15,25 @@
             Welcome to the Official Website for <FancyLink
                 href="http://www.sidneycityschools.org/"
                 target="_blank">Sidney High School</FancyLink
-            > Spanish Club. <br /><br />
+            > Spanish Club. <br />
+
+            <Separator margin="1rem" length="2rem" direction="0" thick="2.7px" />
 
             Here you can find lists of upcoming events, current year officers, and
             <br /> other resources related to the Sidney High School Spanish club Program
         </p>
 
-        <Separator margin="1.5rem" length="2.5rem" direction="0" thick="2.7px" />
+        <Spacing margin="1.5rem" />
 
-        <p class="short-desc spanish">
-            Bienvenido al sitio web oficial del Club de español de <FancyLink
-                href="http://www.sidneycityschools.org/"
-                target="_blank">Sidney High School</FancyLink
-            >. <br /><br />
-
-            Aquí puede encontrar listas de próximos eventos, oficiales del año en curso y otros
-            <br />recursos relacionados con el Programa de clubes de español de Sidney High School.
-        </p>
+        <a href="#CHANGE_ME" class="flex justify-center">
+            <img
+                src="src/assets/heroicons/chevron-double-down.svg"
+                alt="chevron-double-down"
+                class="h-12"
+                id="title-chevron-down"
+            />
+        </a>
+        
     </div>
 
     <BackgroundImage
@@ -50,18 +52,36 @@
     section > div {
         @apply flex flex-col justify-around;
         @apply w-full;
+        @apply text-center;
     }
 
-    div > #title-call-to-action {
+    div.container > #title-call-to-action {
         @apply text-7xl font-black;
 
         font-family: 'Ubuntu Mono', monospace;
     }
 
-    div > .short-desc {
-        @apply text-xl text-center;
+    div.container > .short-desc {
+        @apply text-xl;
 
         font-weight: 500;
         font-family: 'Ubuntu Mono', monospace;
+    }
+
+    @keyframes title-up-down {
+        0% {
+            transform: translateY(-15px);
+        }
+
+        50% {
+            transform: translateY(15px);
+        }
+
+        100% {
+            transform: translateY(-15px);
+        }
+    }
+    #title-chevron-down {
+        animation: 3.5s title-up-down cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
     }
 </style>
