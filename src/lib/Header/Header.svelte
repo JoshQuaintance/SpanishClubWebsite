@@ -18,10 +18,13 @@
             />
         </a>
 
-            <Spacing margin=".55em" />
+        <Spacing margin=".55em" />
 
         <a href="/">
-            <h1 id="header-title" class="font-bold text-2xl">SHS Spanish Club</h1>
+            <h1 id="header-title" class="font-bold text-2xl italic">
+                Sidney<br />
+                &nbsp;&nbsp;Spanish Club
+            </h1>
         </a>
     </div>
 
@@ -70,6 +73,7 @@
     header #header-left-col a h1#header-title {
         @apply text-lg;
 
+        line-height: 22px;
         font-family: 'Jost', sans-serif;
     }
 
