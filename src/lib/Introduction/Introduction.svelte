@@ -25,7 +25,7 @@
 
         <Spacing margin="1.5rem" />
 
-        <a href="#CHANGE_ME" class="flex justify-center">
+            <a href="#l" class="flex justify-center">
             <img
                 src="src/assets/heroicons/chevron-double-down.svg"
                 alt="chevron-double-down"
@@ -33,7 +33,6 @@
                 id="title-chevron-down"
             />
         </a>
-        
     </div>
 
     <BackgroundImage
