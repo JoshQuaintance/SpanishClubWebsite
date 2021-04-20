@@ -1,6 +1,6 @@
 <script>
     import RouterLink from './RouterLink.svelte';
-    import Spacing from '$lib/utils/Spacing.svelte';
+    import Spacing from '$lib/utils/tools/Spacing.svelte';
 
     export let id;
 </script>
