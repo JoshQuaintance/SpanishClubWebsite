@@ -4,8 +4,8 @@
     import Introduction from '$lib/Introduction/Introduction.svelte';
 
     // Utility Components
-    import Intersection from '$lib/utils/Intersection.svelte';
-    import Spacing from '$lib/utils/Spacing.svelte';
+    import Intersection from '$lib/utils/tools/Intersection.svelte';
+    import Spacing from '$lib/utils/tools/Spacing.svelte';
 
     let scrolled;
 </script>
@@ -13,7 +13,7 @@
 <svelte:head>
     <meta charset="UTF-8" />
 
-    <title>SHS Spanish Club</title>
+    <title>Home | Sidney Spanish Club</title>
 </svelte:head>
 
 <Header id={scrolled ? 'scrolled' : ''} />
@@ -21,6 +21,8 @@
     on:intersecting={() => (scrolled = false)}
     on:not-intersecting={() => (scrolled = true)}
 />
+
+<Spacing margin="2rem" />
 
 <Introduction />
 
